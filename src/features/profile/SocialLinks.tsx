@@ -21,7 +21,7 @@ export const SocialLinks: FC<SocialLinksProps> = ({ links }) => {
 							href={link.href}
 							target="_blank"
 							rel="noopener noreferrer"
-							className="flex flex-col items-center gap-2 text-[#fefefe] no-underline"
+							className="flex flex-col items-center gap-2 text-text-primary no-underline"
 						>
 							<img
 								src={link.iconSrc}

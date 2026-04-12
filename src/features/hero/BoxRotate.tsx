@@ -10,7 +10,10 @@ import type { Mesh } from "three";
 import { AsciiEffect } from "three/examples/jsm/effects/AsciiEffect";
 
 const ASCII_CHAR_SET = " .:-=+*#%@";
-const ASCII_COLOR = "#727272ff";
+// Corresponds to --color-text-muted token
+const ASCII_COLOR = "#727272";
+// corresponds to --color-surface-dark
+const SURFACE_DARK_COLOR = "#050914";
 const DEFAULT_BOX_X = -0.6;
 const DEFAULT_BOX_SCALE = 2.5;
 
@@ -114,7 +117,7 @@ export const BoxRotate: FC = () => {
 			style={{ position: "absolute", inset: 0 }}
 			camera={{ position: [0, 0, 4] }}
 		>
-			<color attach="background" args={["#050914"]} />
+			<color attach="background" args={[SURFACE_DARK_COLOR]} />
 			<ambientLight intensity={0.01} />
 			<directionalLight color={ASCII_COLOR} position={[2.5, 4, 6]} />
 			<RotatingBox position={[x, 0, 0]} scale={scale} />
