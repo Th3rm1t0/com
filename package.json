@@ -7,7 +7,7 @@
 		"dev": "vite",
 		"build": "tsc && vite build",
 		"preview": "vite preview",
-		"check": "biome check --write"
+		"check": "tsc --noEmit && biome check ./src"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.3.8",
