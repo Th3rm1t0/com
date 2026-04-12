@@ -25,7 +25,7 @@ export const careerContent: ReactNode = (
 			<div className="rounded-xl border border-white/20 bg-white/[0.06] px-4 py-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
 				<p className="flex flex-wrap items-baseline gap-x-3 gap-y-1 text-text-body">
 					<span className="text-xs font-semibold tracking-[0.12em] text-text-sub sm:text-sm">2024.04 ~</span>
-					<span className="font-medium">某社 / エンジニア職</span>
+					<span className="font-medium">某社 / エンジニア</span>
 				</p>
 			</div>
 
