@@ -1,5 +1,7 @@
 import { type FC, lazy, type ReactNode, Suspense } from "react";
+import { useTheme } from "@/app/providers/theme/ThemeProvider";
 import { useBoxLazyLoad } from "@/features/hero/useBoxLazyLoad";
+import { getHeroGlow } from "@/features/hero/heroThemeStyles";
 
 const LazyBoxRotate = lazy(async () => {
 	const module = await import("@/features/hero/BoxRotate");
@@ -13,6 +15,9 @@ type HeroSectionProps = {
 
 export const HeroSection: FC<HeroSectionProps> = ({ title, tagline }) => {
 	const { targetRef, shouldLoad } = useBoxLazyLoad();
+	const { resolvedTheme } = useTheme();
+	const activeGlow = getHeroGlow(resolvedTheme, "active");
+	const idleGlow = getHeroGlow(resolvedTheme, "idle");
 
 	return (
 		<section ref={targetRef} className="relative min-h-[65vh] overflow-hidden">
@@ -21,7 +26,8 @@ export const HeroSection: FC<HeroSectionProps> = ({ title, tagline }) => {
 					fallback={
 						<div
 							aria-hidden="true"
-							className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.08),_transparent_60%)]"
+							className="absolute inset-0"
+							style={{ background: activeGlow }}
 						/>
 					}
 				>
@@ -30,7 +36,8 @@ export const HeroSection: FC<HeroSectionProps> = ({ title, tagline }) => {
 			) : (
 				<div
 					aria-hidden="true"
-					className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.05),_transparent_60%)]"
+					className="absolute inset-0"
+					style={{ background: idleGlow }}
 				/>
 			)}
 			<div className="relative z-10 flex h-full w-full flex-col items-center justify-center px-6 py-12 text-center">
