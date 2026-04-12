@@ -17,6 +17,7 @@ const SPRING_STIFFNESS = 50;
 const SPRING_DAMPING = 7;
 const KICK_MIN_ANGLE = Math.PI * 0.65;
 const KICK_MAX_ANGLE = Math.PI * 1.05;
+const FULL_ROTATION = Math.PI * 2;
 const MAX_DELTA_SECONDS = 1 / 30;
 
 const randomBetween = (min: number, max: number): number => min + Math.random() * (max - min);
@@ -34,10 +35,17 @@ const createRandomKick = (): { x: number; y: number; z: number } => {
 	return { x: x * magnitude, y: y * magnitude, z: z * magnitude };
 };
 
+const createRandomInitialRotation = (): { x: number; y: number; z: number } => ({
+	x: randomBetween(0, FULL_ROTATION),
+	y: randomBetween(0, FULL_ROTATION),
+	z: randomBetween(0, FULL_ROTATION),
+});
+
 export const RotatingBox: FC<RotatingBoxProps> = ({ faceColors, ...meshProps }) => {
+	const initialRotation = useMemo(() => createRandomInitialRotation(), []);
 	const meshRef = useRef<Mesh>(null);
 	const rotationStateRef = useRef<RotationState>({
-		target: { x: 0, y: 0, z: 0 },
+		target: { ...initialRotation },
 		velocity: { x: 0, y: 0, z: 0 },
 		nextKickAt: 0,
 	});
@@ -93,7 +101,12 @@ export const RotatingBox: FC<RotatingBoxProps> = ({ faceColors, ...meshProps }) 
 	});
 
 	return (
-		<mesh {...meshProps} ref={meshRef} material={materials}>
+		<mesh
+			{...meshProps}
+			ref={meshRef}
+			material={materials}
+			rotation={[initialRotation.x, initialRotation.y, initialRotation.z]}
+		>
 			<boxGeometry args={[1, 1, 1]} />
 		</mesh>
 	);
