@@ -1,18 +1,78 @@
 @import "tailwindcss";
 
-@theme {
-  --color-surface: #17182c;
-  --color-surface-dark: #050914;
-  --color-surface-card: rgba(255, 255, 255, 0.05);
+:root {
+  --surface: #f3f6fb;
+  --surface-elevated: #e6edf7;
+  --surface-dark: #d5e2f3;
+  --surface-card: rgba(255, 255, 255, 0.74);
 
-  --color-text-primary: #fefefe;
-  --color-text-body: #e8e8e8;
-  --color-text-muted: #727272;
-  --color-text-sub: #cbd5e1;
+  --text-primary: #0f172a;
+  --text-body: #1e293b;
+  --text-muted: #475569;
+  --text-sub: #334155;
 
-  --color-border-subtle: rgba(255, 255, 255, 0.1);
-  --color-border-card: rgba(255, 255, 255, 0.2);
+  --border-subtle: rgba(15, 23, 42, 0.14);
+  --border-card: rgba(15, 23, 42, 0.24);
+
+  --theme-toggle-bg: rgba(255, 255, 255, 0.84);
+  --theme-toggle-ring: rgba(15, 23, 42, 0.28);
 
   --font-display: "Inter", sans-serif;
   --font-body: "Noto Sans JP", sans-serif;
+}
+
+:root[data-theme="dark"] {
+  --surface: #17182c;
+  --surface-elevated: #0f1223;
+  --surface-dark: #050914;
+  --surface-card: rgba(255, 255, 255, 0.05);
+
+  --text-primary: #fefefe;
+  --text-body: #e8e8e8;
+  --text-muted: #727272;
+  --text-sub: #cbd5e1;
+
+  --border-subtle: rgba(255, 255, 255, 0.1);
+  --border-card: rgba(255, 255, 255, 0.2);
+
+  --theme-toggle-bg: rgba(15, 23, 42, 0.58);
+  --theme-toggle-ring: rgba(203, 213, 225, 0.45);
+}
+
+@theme {
+  --color-surface: var(--surface);
+  --color-surface-elevated: var(--surface-elevated);
+  --color-surface-dark: var(--surface-dark);
+  --color-surface-card: var(--surface-card);
+
+  --color-text-primary: var(--text-primary);
+  --color-text-body: var(--text-body);
+  --color-text-muted: var(--text-muted);
+  --color-text-sub: var(--text-sub);
+
+  --color-border-subtle: var(--border-subtle);
+  --color-border-card: var(--border-card);
+  --color-theme-toggle-bg: var(--theme-toggle-bg);
+  --color-theme-toggle-ring: var(--theme-toggle-ring);
+
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: linear-gradient(180deg, var(--surface) 0%, var(--surface-elevated) 100%);
+  color: var(--text-body);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  body {
+    transition: background-color 220ms ease, color 220ms ease;
+  }
 }

@@ -9,6 +9,20 @@
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" as="style" fetchpriority="high">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" media="print" onload='this.media="all"'>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (function () {
+        var key = "theme-mode";
+        var storedMode = localStorage.getItem(key);
+        var mode = storedMode === "light" || storedMode === "dark" || storedMode === "system"
+          ? storedMode
+          : "system";
+        var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        var resolvedTheme = mode === "system" ? (prefersDark ? "dark" : "light") : mode;
+
+        document.documentElement.setAttribute("data-theme", resolvedTheme);
+        document.documentElement.style.colorScheme = resolvedTheme;
+      })();
+    </script>
     <title>Th3rm1t3.com</title>
   </head>
   <body>
