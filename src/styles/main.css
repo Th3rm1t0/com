@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+@theme {
+  --color-surface: #17182c;
+  --color-surface-dark: #050914;
+  --color-surface-card: rgba(255, 255, 255, 0.05);
+
+  --color-text-primary: #fefefe;
+  --color-text-body: #e8e8e8;
+  --color-text-muted: #727272;
+  --color-text-sub: #cbd5e1;
+
+  --color-border-subtle: rgba(255, 255, 255, 0.1);
+  --color-border-card: rgba(255, 255, 255, 0.2);
+
+  --font-display: "Inter", sans-serif;
+  --font-body: "Noto Sans JP", sans-serif;
+}

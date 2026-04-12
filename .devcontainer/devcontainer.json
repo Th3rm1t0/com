@@ -1,19 +1,16 @@
 {
-    "name": "devcontainer",
-    "build": {
-        "dockerfile": "Dockerfile",
-        "context": "."
-    },
-    "features": {
-        "ghcr.io/devcontainers/features/node:1": {}
-    },
-    "customizations": {
-        "vscode": {
-            "extensions": [
-                "biomejs.biome",
-                "openai.chatgpt"
-            ]
-        }
-    },
-    "postStartCommand": ".devcontainer/start.sh"
+	"name": "devcontainer",
+	"build": {
+		"dockerfile": "Dockerfile",
+		"context": "."
+	},
+	"features": {
+		"ghcr.io/devcontainers/features/node:1": {}
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": ["biomejs.biome", "openai.chatgpt"]
+		}
+	},
+	"postStartCommand": ".devcontainer/start.sh"
 }
