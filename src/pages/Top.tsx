@@ -1,9 +1,7 @@
 import type { FC } from "react";
-import { AboutMe } from "@/features/about";
-import { careerContent } from "@/features/about/career";
+import { AboutMe, careerContent } from "@/features/about";
 import { HeroSection } from "@/features/hero";
-import { Profile, SocialLinks } from "@/features/profile";
-import { socialLinks } from "@/features/profile/social-links";
+import { Profile, SocialLinks, socialLinks } from "@/features/profile";
 import { ThemeToggle } from "@/features/theme";
 
 export const Top: FC = () => {

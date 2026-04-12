@@ -1,6 +1,10 @@
 import type { FC, ReactNode } from "react";
 import { ThemeProvider } from "@/app/providers/theme/ThemeProvider";
 
-export const AppProviders: FC<{ children: ReactNode }> = ({ children }) => {
+type AppProvidersProps = {
+	children: ReactNode;
+};
+
+export const AppProviders: FC<AppProvidersProps> = ({ children }) => {
 	return <ThemeProvider>{children}</ThemeProvider>;
 };

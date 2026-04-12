@@ -1,6 +1,7 @@
 import { type FC, lazy, type ReactNode, Suspense } from "react";
 import { useTheme } from "@/app/providers/theme/ThemeProvider";
 import { useBoxLazyLoad } from "@/features/hero/useBoxLazyLoad";
+import { getHeroGlow } from "@/features/hero/heroThemeStyles";
 
 const LazyBoxRotate = lazy(async () => {
 	const module = await import("@/features/hero/BoxRotate");
@@ -15,15 +16,8 @@ type HeroSectionProps = {
 export const HeroSection: FC<HeroSectionProps> = ({ title, tagline }) => {
 	const { targetRef, shouldLoad } = useBoxLazyLoad();
 	const { resolvedTheme } = useTheme();
-
-	const activeGlow =
-		resolvedTheme === "dark"
-			? "radial-gradient(circle at center, rgba(255,255,255,0.08), transparent 60%)"
-			: "radial-gradient(circle at center, rgba(15,23,42,0.16), transparent 64%)";
-	const idleGlow =
-		resolvedTheme === "dark"
-			? "radial-gradient(circle at center, rgba(255,255,255,0.05), transparent 60%)"
-			: "radial-gradient(circle at center, rgba(15,23,42,0.1), transparent 64%)";
+	const activeGlow = getHeroGlow(resolvedTheme, "active");
+	const idleGlow = getHeroGlow(resolvedTheme, "idle");
 
 	return (
 		<section ref={targetRef} className="relative min-h-[65vh] overflow-hidden">
