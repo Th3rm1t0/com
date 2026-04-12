@@ -1,5 +1,4 @@
 import type { FC } from "react";
-import { useI18n } from "@/app/providers/i18n/I18nProvider";
 import { useTheme } from "@/app/providers/theme/ThemeProvider";
 
 const SunIcon: FC = () => (
@@ -41,13 +40,12 @@ const MoonIcon: FC = () => (
 );
 
 export const ThemeToggle: FC = () => {
-	const { messages } = useI18n();
 	const { resolvedTheme, toggleTheme } = useTheme();
 
 	const isDark = resolvedTheme === "dark";
 	const switchLabel = isDark
-		? messages.theme.switchToLight
-		: messages.theme.switchToDark;
+		? "ライトモードに切り替える"
+		: "ダークモードに切り替える";
 
 	return (
 		<button
