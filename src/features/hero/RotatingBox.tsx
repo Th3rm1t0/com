@@ -19,6 +19,7 @@ const KICK_MIN_ANGLE = Math.PI * 0.65;
 const KICK_MAX_ANGLE = Math.PI * 1.05;
 const FULL_ROTATION = Math.PI * 2;
 const MAX_DELTA_SECONDS = 1 / 30;
+const RESUME_SYNC_GAP_SECONDS = BEAT_INTERVAL_SECONDS * 2;
 
 const randomBetween = (min: number, max: number): number => min + Math.random() * (max - min);
 
@@ -76,12 +77,18 @@ export const RotatingBox: FC<RotatingBoxProps> = ({ faceColors, ...meshProps }) 
 			rotationState.nextKickAt = elapsed + BEAT_INTERVAL_SECONDS;
 		}
 
-		while (elapsed >= rotationState.nextKickAt) {
-			const kick = createRandomKick();
-			rotationState.target.x += kick.x;
-			rotationState.target.y += kick.y;
-			rotationState.target.z += kick.z;
-			rotationState.nextKickAt += BEAT_INTERVAL_SECONDS;
+		const lagSeconds = elapsed - rotationState.nextKickAt;
+		if (lagSeconds >= 0) {
+			// If the tab was inactive for a while, skip backlogged kicks and restart the beat schedule.
+			if (lagSeconds > RESUME_SYNC_GAP_SECONDS) {
+				rotationState.nextKickAt = elapsed + BEAT_INTERVAL_SECONDS;
+			} else {
+				const kick = createRandomKick();
+				rotationState.target.x += kick.x;
+				rotationState.target.y += kick.y;
+				rotationState.target.z += kick.z;
+				rotationState.nextKickAt += BEAT_INTERVAL_SECONDS;
+			}
 		}
 
 		const springX = rotationState.target.x - meshRef.current.rotation.x;
