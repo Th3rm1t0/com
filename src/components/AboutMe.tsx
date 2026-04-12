@@ -18,7 +18,7 @@ export const AboutMe: FC<AboutMeProps> = ({ career, skills, curiosities }) => {
 						{career}
 					</div>
 					<h2 className="md:text-3xl text-2xl font-semibold tracking-wide text-white mt-10 underline decoration-sky-600">
-						スキル・資格
+						スキル
 					</h2>
 					<div className="mt-3 text-sm text-left sm:text-base leading-relaxed text-slate-300">
 						{skills}

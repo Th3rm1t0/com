@@ -77,28 +77,43 @@ export const Top: FC = () => {
 				<Profile
 					imageSrc="/icon.webp"
 					name="Th3rm1t3 / テルミット"
-					bio={<>やったりやらなかったり系エンジニア</>}
+					bio={<p>やったりやらなかったり</p>}
 				/>
 			</div>
 			<div>
 				<AboutMe
 					career={
 						<ul className="list-disc list-inside space-y-2">
-							<li>~2024.03: IT系専門学校</li>
+							<li>~2024.03: 情報系専門学校 / システムエンジニア科</li>
 							<li>
 								2024.04~現在: 某社 / エンジニア職
 								<ul className="list-disc mt-2 list-inside ml-4 space-y-1">
 									<li>
-										Go, Python, TypeScript を使用した Web
-										バックエンドシステム、およびクラウドインフラ(AWS
-										CDK)関連の開発・設計
+										Go, Python, TypeScript, etc... を使用した Web
+										バックエンドシステム、およびクラウドインフラ(AWS利用)関連の開発・設計
 									</li>
 								</ul>
 							</li>
 						</ul>
 					}
-					skills={<>Skills content here</>}
-					curiosities={<>Curiosities content here</>}
+					skills={
+						<ul className="list-disc list-inside space-y-2">
+							<li>Go</li>
+							<li>Python</li>
+							<li>TypeScript</li>
+							<li>Docker</li>
+							<li>AWS (Cfn, CDK, Lambda, EC2, ECS, VPC, Stepfunctions, S3, RDS, etc...)</li>
+							<li>Git, Github</li>
+							<li>SQL, DBMS(MySQL, PostgreSQL)</li>
+							<li>CI/CD (GitHub Actions, AWS CodePipeline, etc.)</li>
+						</ul>
+					}
+					curiosities={
+						<ul className="list-disc list-inside space-y-2">
+							<li>各種トレードオフを分析した上での技術選定・アーキテクチャ・コード設計、およびそれに伴うシステム開発</li>
+							<li>技術的に面白いことをやる、ITエンジニアとして自分が楽しめる環境に身を投じる</li>
+						</ul>
+					}
 				/>
 			</div>
 		</main>
