@@ -11,15 +11,7 @@ export const Top: FC = () => {
 				<ThemeToggle />
 			</div>
 			<div>
-				<HeroSection
-					title="Th3rm1t3.com"
-					tagline={
-						<>
-							Hello and, again, welcome to Th3rm1t3's site.
-							<br />
-						</>
-					}
-				/>
+				<HeroSection title="Th3rm1t3.com" />
 			</div>
 			<div className="mt-4">
 				<SocialLinks links={socialLinks} />
