@@ -1,7 +1,5 @@
-import { type FC, lazy, type ReactNode, Suspense } from "react";
-import { useTheme } from "@/app/providers/theme/ThemeProvider";
+import { type FC, lazy, Suspense } from "react";
 import { useBoxLazyLoad } from "@/features/hero/useBoxLazyLoad";
-import { getHeroGlow } from "@/features/hero/heroThemeStyles";
 
 const LazyBoxRotate = lazy(async () => {
 	const module = await import("@/features/hero/BoxRotate");
@@ -10,42 +8,37 @@ const LazyBoxRotate = lazy(async () => {
 
 type HeroSectionProps = {
 	title: string;
-	tagline: ReactNode;
 };
 
-export const HeroSection: FC<HeroSectionProps> = ({ title, tagline }) => {
+export const HeroSection: FC<HeroSectionProps> = ({ title }) => {
 	const { targetRef, shouldLoad } = useBoxLazyLoad();
-	const { resolvedTheme } = useTheme();
-	const activeGlow = getHeroGlow(resolvedTheme, "active");
-	const idleGlow = getHeroGlow(resolvedTheme, "idle");
 
 	return (
-		<section ref={targetRef} className="relative min-h-[65vh] overflow-hidden">
-			{shouldLoad ? (
-				<Suspense
-					fallback={
-						<div
-							aria-hidden="true"
-							className="absolute inset-0"
-							style={{ background: activeGlow }}
-						/>
-					}
-				>
-					<LazyBoxRotate />
-				</Suspense>
-			) : (
-				<div
-					aria-hidden="true"
-					className="absolute inset-0"
-					style={{ background: idleGlow }}
-				/>
-			)}
-			<div className="relative z-10 flex h-full w-full flex-col items-center justify-center px-6 py-12 text-center">
-				<h1 className="sm:mt-[2em] mt-[4em] font-display text-[clamp(3rem,7vw,4.5rem)] font-bold text-text-primary">
-					{title}
-				</h1>
-				<div className="mx-auto mb-8 mt-5 p-1 max-w-[620px] text-base leading-[1.6] text-text-primary backdrop-blur rounded">
-					<p>{tagline}</p>
+		<section
+			ref={targetRef}
+			className="relative overflow-hidden"
+		>
+			<div className="absolute inset-0 lg:left-[38%] xl:left-[40%]">
+				{shouldLoad ? (
+					<Suspense
+						fallback={
+							<div aria-hidden="true" className="absolute inset-0" />
+						}
+					>
+						<LazyBoxRotate />
+					</Suspense>
+				) : (
+					<div aria-hidden="true" className="absolute inset-0" />
+				)}
+			</div>
+			<div className="relative z-10 mx-auto flex min-h-[65vh] w-full max-w-6xl items-center px-6 py-12 sm:px-8 lg:min-h-[72vh] lg:px-10 lg:py-16">
+				<div className="grid w-full items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(15rem,0.74fr)] lg:gap-6 xl:grid-cols-[minmax(0,1fr)_minmax(18rem,0.78fr)] xl:gap-8">
+					<div className="relative z-20 flex flex-col items-center text-center lg:-mr-16 lg:items-start lg:text-left xl:-mr-20">
+						<h1 className="mt-[3.25rem] whitespace-nowrap font-display text-[clamp(2.45rem,12.8vw,5.8rem)] font-extrabold leading-[0.9] tracking-[-0.045em] text-text-primary sm:mt-[2.5rem] lg:mt-0 lg:text-[clamp(5.1rem,8.6vw,7.9rem)] xl:text-[clamp(5.9rem,7.8vw,9rem)]">
+							{title}
+						</h1>
+					</div>
+					<div aria-hidden="true" className="hidden h-[19rem] lg:block xl:h-[22rem]" />
 				</div>
 			</div>
 		</section>
