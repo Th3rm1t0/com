@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const DEFAULT_BOX_X = -0.32;
+const DEFAULT_BOX_X = -0.6;
 const DEFAULT_BOX_SCALE = 2.74;
 
 export type BoxParams = {
