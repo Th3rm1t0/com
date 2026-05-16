@@ -20,7 +20,7 @@ export const Top: FC = () => {
 				<Profile
 					imageSrc="/icon.webp"
 					name="Th3rm1t3 / テルミット"
-					bio={<>やったりやらなかったり系エンジニア</>}
+					bio={<>キラメキ駆動系エンジニア</>}
 				/>
 			</div>
 			<div>
