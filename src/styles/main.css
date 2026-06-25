@@ -91,114 +91,17 @@ body {
   inset: 0;
   overflow: hidden;
   color: inherit;
+  pointer-events: none;
 }
 
 .glitch::before {
-  text-shadow: -2px 0 #ff003c;
+  clip-path: var(--g-b-clip, inset(0 0 100% 0));
+  transform: translateX(var(--g-b-tx, 0)) skewX(var(--g-b-skew, 0deg));
+  text-shadow: -2px 0 var(--g-b-shadow, transparent);
 }
 
 .glitch::after {
-  text-shadow: 2px 0 #00e4ff;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .glitch::before {
-    animation: glitch-top 8s step-end infinite;
-    animation-delay: 0.3s;
-  }
-
-  .glitch::after {
-    animation: glitch-bottom 8s step-end infinite;
-    animation-delay: 0.6s;
-  }
-}
-
-@keyframes glitch-top {
-  0%, 78% {
-    clip-path: inset(0 0 100% 0);
-    transform: none;
-  }
-  79% {
-    clip-path: inset(10% 0 65% 0);
-    transform: translateX(-4px) skewX(-2deg);
-  }
-  80% {
-    clip-path: inset(50% 0 20% 0);
-    transform: translateX(3px) skewX(1deg);
-  }
-  81% {
-    clip-path: inset(25% 0 40% 0);
-    transform: translateX(-6px) skewX(-3deg);
-  }
-  82% {
-    clip-path: inset(70% 0 5% 0);
-    transform: translateX(2px);
-  }
-  83% {
-    clip-path: inset(5% 0 75% 0);
-    transform: translateX(-3px) skewX(2deg);
-  }
-  84%, 92% {
-    clip-path: inset(0 0 100% 0);
-    transform: none;
-  }
-  93% {
-    clip-path: inset(40% 0 30% 0);
-    transform: translateX(5px) skewX(-1deg);
-  }
-  94% {
-    clip-path: inset(15% 0 60% 0);
-    transform: translateX(-2px) skewX(3deg);
-  }
-  95% {
-    clip-path: inset(60% 0 10% 0);
-    transform: translateX(4px);
-  }
-  96%, 100% {
-    clip-path: inset(0 0 100% 0);
-    transform: none;
-  }
-}
-
-@keyframes glitch-bottom {
-  0%, 80% {
-    clip-path: inset(0 0 100% 0);
-    transform: none;
-  }
-  81% {
-    clip-path: inset(60% 0 10% 0);
-    transform: translateX(5px) skewX(2deg);
-  }
-  82% {
-    clip-path: inset(20% 0 50% 0);
-    transform: translateX(-4px) skewX(-1deg);
-  }
-  83% {
-    clip-path: inset(80% 0 0% 0);
-    transform: translateX(3px);
-  }
-  84% {
-    clip-path: inset(35% 0 40% 0);
-    transform: translateX(-5px) skewX(3deg);
-  }
-  85%, 94% {
-    clip-path: inset(0 0 100% 0);
-    transform: none;
-  }
-  95% {
-    clip-path: inset(45% 0 25% 0);
-    transform: translateX(-3px) skewX(-2deg);
-  }
-  96% {
-    clip-path: inset(10% 0 70% 0);
-    transform: translateX(6px) skewX(1deg);
-  }
-  97% {
-    clip-path: inset(55% 0 15% 0);
-    transform: translateX(-2px);
-  }
-  98%, 100% {
-    clip-path: inset(0 0 100% 0);
-    transform: none;
-  }
+  clip-path: var(--g-a-clip, inset(0 0 100% 0));
+  transform: translateX(var(--g-a-tx, 0)) skewX(var(--g-a-skew, 0deg));
+  text-shadow: 2px 0 var(--g-a-shadow, transparent);
 }
