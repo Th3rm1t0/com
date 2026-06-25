@@ -12,5 +12,8 @@
 			"extensions": ["biomejs.biome", "openai.chatgpt"]
 		}
 	},
-	"postStartCommand": ".devcontainer/start.sh"
+	"postStartCommand": ".devcontainer/start.sh",
+	"mounts": [
+		"source=${localEnv:HOME}/.claude/skills,target=/home/node/.claude/skills,type=bind,consistency=cached"
+	]
 }
