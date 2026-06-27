@@ -5,7 +5,8 @@
 		"context": "."
 	},
 	"features": {
-		"ghcr.io/devcontainers/features/node:1": {}
+		"ghcr.io/devcontainers/features/node:1": {},
+		"ghcr.io/devcontainers/features/github-cli:1": {}
 	},
 	"customizations": {
 		"vscode": {
@@ -14,6 +15,7 @@
 	},
 	"postStartCommand": ".devcontainer/start.sh",
 	"mounts": [
-		"source=${localEnv:HOME}/.claude/skills,target=/home/node/.claude/skills,type=bind,consistency=cached"
+		"source=${localEnv:HOME}/.claude/skills,target=/home/node/.claude/skills,type=bind,consistency=cached",
+  		"source=/nix/store,target=/nix/store,type=bind,readonly,consistency=cached"
 	]
 }
