@@ -23,7 +23,7 @@ export const InterestBento: FC<InterestBentoProps> = ({ interests }) => {
 				{interests.map((interest) => (
 					<div
 						key={interest.label}
-						className={`group relative flex cursor-default flex-col items-center justify-center gap-2 overflow-hidden rounded-2xl border border-border-subtle transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${
+						className={`group relative flex cursor-default flex-col items-center justify-center gap-2 overflow-hidden rounded-2xl border border-border-subtle transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-xl ${
 							interest.span === "wide" ? "col-span-2" : ""
 						}`}
 						style={{

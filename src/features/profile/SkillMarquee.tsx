@@ -32,39 +32,52 @@ function getColors(el: Element) {
 	return { bg: cs.backgroundColor, border: cs.borderColor };
 }
 
+function computeTransform(visual: Rect, pivot: Rect): string {
+	const tx =
+		visual.left + visual.width / 2 - (pivot.left + pivot.width / 2);
+	const ty =
+		visual.top + visual.height / 2 - (pivot.top + pivot.height / 2);
+	const sx = visual.width / pivot.width;
+	const sy = visual.height / pivot.height;
+	if (tx === 0 && ty === 0 && sx === 1 && sy === 1) return "none";
+	return `translate(${tx}px, ${ty}px) scale(${sx}, ${sy})`;
+}
+
+function lerpRect(a: Rect, b: Rect, t: number): Rect {
+	return {
+		top: lerp(a.top, b.top, t),
+		left: lerp(a.left, b.left, t),
+		width: lerp(a.width, b.width, t),
+		height: lerp(a.height, b.height, t),
+	};
+}
+
 function buildMorphKeyframes(
+	pivot: Rect,
 	from: Rect,
 	to: Rect,
 	fromColors: { bg: string; border: string },
 	toColors: { bg: string; border: string },
 	midOffset: number,
 ): Keyframe[] {
+	const mid = lerpRect(from, to, midOffset);
 	return [
 		{
-			top: `${from.top}px`,
-			left: `${from.left}px`,
-			width: `${from.width}px`,
-			height: `${from.height}px`,
+			transform: computeTransform(from, pivot),
 			borderRadius: "9999px",
 			backgroundColor: fromColors.bg,
 			borderColor: fromColors.border,
 			offset: 0,
 		},
 		{
-			top: `${lerp(from.top, to.top, midOffset)}px`,
-			left: `${lerp(from.left, to.left, midOffset)}px`,
-			width: `${lerp(from.width, to.width, midOffset)}px`,
-			height: `${lerp(from.height, to.height, midOffset)}px`,
+			transform: computeTransform(mid, pivot),
 			borderRadius: "24px",
 			backgroundColor: toColors.bg,
 			borderColor: toColors.border,
 			offset: midOffset,
 		},
 		{
-			top: `${to.top}px`,
-			left: `${to.left}px`,
-			width: `${to.width}px`,
-			height: `${to.height}px`,
+			transform: computeTransform(to, pivot),
 			borderRadius: "16px",
 			backgroundColor: toColors.bg,
 			borderColor: toColors.border,
@@ -95,6 +108,8 @@ const SkillModal: FC<{
 		const run = () => {
 			if (cancelled) return;
 
+			const pillColors = getColors(pillEl);
+
 			const vw = window.innerWidth;
 			const vh = window.innerHeight;
 			const fw = Math.min(640, vw - 48);
@@ -111,13 +126,23 @@ const SkillModal: FC<{
 			const fh = card.offsetHeight;
 			card.style.height = `${fh}px`;
 			card.style.visibility = "visible";
+			card.style.willChange = "transform";
 
 			const dest: Rect = { top: ft, left: fl, width: fw, height: fh };
 			finalRef.current = dest;
 
+			const cardColors = getColors(card);
+
 			const anim = card.animate(
-				buildMorphKeyframes(originRect, dest, getColors(pillEl), getColors(card), 0.35),
-				{ duration: MORPH_DURATION, easing: MORPH_EASING, fill: "forwards" },
+				buildMorphKeyframes(
+					dest,
+					originRect,
+					dest,
+					pillColors,
+					cardColors,
+					0.35,
+				),
+				{ duration: MORPH_DURATION, easing: MORPH_EASING },
 			);
 
 			overlay.animate([{ opacity: 0 }, { opacity: 1 }], {
@@ -125,7 +150,10 @@ const SkillModal: FC<{
 				easing: MORPH_EASING,
 			});
 
-			anim.onfinish = () => setContentVisible(true);
+			anim.onfinish = () => {
+				card.style.willChange = "";
+				setContentVisible(true);
+			};
 		};
 
 		document.fonts.ready.then(run);
@@ -147,12 +175,15 @@ const SkillModal: FC<{
 		}
 
 		setContentVisible(false);
+		card.style.willChange = "transform";
 
 		const run = () => {
 			const pillRect = pillEl.getBoundingClientRect();
+			const cardColors = getColors(card);
+			const pillColors = getColors(pillEl);
 
 			const anim = card.animate(
-				buildMorphKeyframes(fr, pillRect, getColors(card), getColors(pillEl), 0.65),
+				buildMorphKeyframes(fr, fr, pillRect, cardColors, pillColors, 0.65),
 				{ duration: MORPH_DURATION, easing: MORPH_EASING, fill: "forwards" },
 			);
 
@@ -234,11 +265,13 @@ export const SkillMarquee: FC<SkillMarqueeProps> = ({ skills }) => {
 
 		const onEnd = () => {
 			el.removeEventListener("transitionend", onEnd);
+			clearTimeout(fallback);
 			el.style.transition = "";
 			el.style.visibility = "hidden";
 			setModal({ skill, rect });
 		};
 		el.addEventListener("transitionend", onEnd);
+		const fallback = setTimeout(onEnd, PILL_FADE_MS + 50);
 	}, []);
 
 	const handleClose = useCallback(() => {
@@ -267,7 +300,7 @@ export const SkillMarquee: FC<SkillMarqueeProps> = ({ skills }) => {
 							}}
 							type="button"
 							onClick={() => handleClick(skill)}
-							className="flex items-center gap-2 rounded-full border border-border-subtle bg-surface-card px-5 py-2.5 text-sm font-medium text-text-sub backdrop-blur-sm transition-all duration-200 hover:border-border-card hover:shadow-md"
+							className="flex items-center gap-2 rounded-full border border-border-subtle bg-surface-card px-5 py-2.5 text-sm font-medium text-text-sub transition-[border-color,box-shadow] duration-200 hover:border-border-card hover:shadow-md"
 						>
 							<span className="text-lg">{skill.icon}</span>
 							{skill.name}
