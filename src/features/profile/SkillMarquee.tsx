@@ -1,8 +1,15 @@
-import { type FC, useState, useRef, useCallback, useEffect } from "react";
+import {
+	type FC,
+	type ReactNode,
+	useState,
+	useRef,
+	useCallback,
+	useEffect,
+} from "react";
 
 type Skill = {
 	name: string;
-	icon: string;
+	icon: ReactNode;
 	description?: string;
 };
 
