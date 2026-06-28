@@ -1,6 +1,14 @@
 import type { FC } from "react";
 import { HeroSection } from "@/features/hero";
-import { Profile, SocialLinks, socialLinks } from "@/features/profile";
+import {
+	Profile,
+	SocialLinks,
+	socialLinks,
+	SkillMarquee,
+	InterestBento,
+	skills,
+	interests,
+} from "@/features/profile";
 import { ThemeToggle } from "@/features/theme";
 
 export const Top: FC = () => {
@@ -19,9 +27,18 @@ export const Top: FC = () => {
 				<Profile
 					imageSrc="/icon.webp"
 					name="Th3rm1t3 / テルミット"
-					bio={<>キラメキ駆動開発者</>}
+					tagline="キラメキ駆動開発者"
+					bio={
+						<p>
+							ものづくりが好きなエンジニア。フロントエンドからインフラまで幅広く触りながら、
+							日々キラメキを探して開発しています。技術の面白さを追求しつつ、
+							ユーザーに届く体験を大切にしています。
+						</p>
+					}
 				/>
 			</div>
+			<SkillMarquee skills={skills} />
+			<InterestBento interests={interests} />
 		</main>
 	);
 };
