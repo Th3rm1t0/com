@@ -246,7 +246,7 @@ const SkillModal: FC<{
 						</span>
 					</div>
 					{skill.description && (
-						<p className="mt-5 text-base leading-relaxed text-surface/80 md:text-lg">
+						<p className="mt-5 whitespace-pre-line text-base leading-relaxed text-surface/80 md:text-lg">
 							{skill.description}
 						</p>
 					)}
