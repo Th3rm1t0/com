@@ -76,32 +76,3 @@ body {
     transition: background-color 220ms ease, color 220ms ease;
   }
 }
-
-/* ── Glitch text effect ── */
-
-.glitch {
-  position: relative;
-  display: inline-block;
-}
-
-.glitch::before,
-.glitch::after {
-  content: attr(data-text);
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  color: inherit;
-  pointer-events: none;
-}
-
-.glitch::before {
-  clip-path: var(--g-b-clip, inset(0 0 100% 0));
-  transform: translateX(var(--g-b-tx, 0)) skewX(var(--g-b-skew, 0deg));
-  text-shadow: -2px 0 var(--g-b-shadow, transparent);
-}
-
-.glitch::after {
-  clip-path: var(--g-a-clip, inset(0 0 100% 0));
-  transform: translateX(var(--g-a-tx, 0)) skewX(var(--g-a-skew, 0deg));
-  text-shadow: 2px 0 var(--g-a-shadow, transparent);
-}
