@@ -1,5 +1,4 @@
 import type { FC } from "react";
-import { AboutMe, careerContent } from "@/features/about";
 import { HeroSection } from "@/features/hero";
 import { Profile, SocialLinks, socialLinks } from "@/features/profile";
 import { ThemeToggle } from "@/features/theme";
@@ -20,11 +19,8 @@ export const Top: FC = () => {
 				<Profile
 					imageSrc="/icon.webp"
 					name="Th3rm1t3 / テルミット"
-					bio={<>やったりやらなかったり系エンジニア</>}
+					bio={<>キラメキ駆動開発者</>}
 				/>
-			</div>
-			<div>
-				<AboutMe career={careerContent} />
 			</div>
 		</main>
 	);

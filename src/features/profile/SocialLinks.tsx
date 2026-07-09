@@ -1,12 +1,11 @@
 import type { FC } from "react";
-import { useTheme } from "@/app/providers/theme/ThemeProvider";
-import { pickByTheme } from "@/app/providers/theme/themeValue";
+import type { IconType } from "react-icons";
 
 export type SocialLink = {
 	id: string;
 	href: string;
 	label: string;
-	iconSrc: string;
+	icon: IconType;
 };
 
 type SocialLinksProps = {
@@ -14,12 +13,6 @@ type SocialLinksProps = {
 };
 
 export const SocialLinks: FC<SocialLinksProps> = ({ links }) => {
-	const { resolvedTheme } = useTheme();
-	const iconFilter = pickByTheme(resolvedTheme, {
-		dark: undefined,
-		light: "brightness(0) saturate(100%) opacity(0.85)",
-	});
-
 	return (
 		<section>
 			<div className="flex flex-wrap justify-center gap-4 py-4">
@@ -31,13 +24,7 @@ export const SocialLinks: FC<SocialLinksProps> = ({ links }) => {
 							rel="noopener noreferrer"
 							className="flex flex-col items-center gap-2 text-text-primary no-underline"
 						>
-							<img
-								src={link.iconSrc}
-								alt={link.label}
-								className="block h-8 w-8"
-								style={{ filter: iconFilter }}
-								loading="lazy"
-							/>
+							<link.icon aria-label={link.label} className="h-8 w-8" />
 							<span className="text-[0.85rem]">{link.label}</span>
 						</a>
 					</div>
