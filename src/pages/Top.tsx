@@ -15,11 +15,16 @@ export const Top: FC = () => {
 			<div className="mt-4">
 				<SocialLinks links={socialLinks} />
 			</div>
-			<div className="mt-24">
+			<div className="mt-24 mb-28">
 				<Profile
 					imageSrc="/icon.webp"
 					name="Th3rm1t3 / テルミット"
-					bio={<>キラメキ駆動開発者</>}
+					bio={
+						<>
+						Web エンジニア<br/>
+						宮城県仙台市出身<br/>
+						ラーメン駆動開発をたしなんでいる
+					</>}
 				/>
 			</div>
 		</main>
