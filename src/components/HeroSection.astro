@@ -1,0 +1,35 @@
+---
+import { HeroCanvas } from "@/components/hero/HeroCanvas";
+import type { HeroModelName } from "@/components/hero/models";
+
+type Props = {
+	title: string;
+	model?: HeroModelName;
+};
+
+const { title, model = "box" } = Astro.props;
+---
+
+<section class="relative overflow-hidden">
+	<div class="absolute inset-0 lg:left-[38%] xl:left-[40%]">
+		<HeroCanvas client:only="react" model={model} />
+	</div>
+	<div
+		class="pointer-events-none relative z-10 mx-auto flex min-h-[65vh] w-full max-w-6xl items-center px-6 py-12 sm:px-8 lg:min-h-[72vh] lg:px-10 lg:py-16"
+	>
+		<div
+			class="grid w-full items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(15rem,0.74fr)] lg:gap-6 xl:grid-cols-[minmax(0,1fr)_minmax(18rem,0.78fr)] xl:gap-8"
+		>
+			<div
+				class="relative z-20 flex flex-col items-center text-center lg:-mr-16 lg:items-start lg:text-left xl:-mr-20"
+			>
+				<h1
+					class="mt-[3.25rem] whitespace-nowrap font-display text-[clamp(2.45rem,12.8vw,5.8rem)] font-extrabold leading-[0.9] tracking-[-0.045em] text-text-primary sm:mt-[2.5rem] lg:mt-0 lg:text-[clamp(5.1rem,8.6vw,7.9rem)] xl:text-[clamp(5.9rem,7.8vw,9rem)]"
+				>
+					{title}
+				</h1>
+			</div>
+			<div aria-hidden="true" class="hidden h-[19rem] lg:block xl:h-[22rem]"></div>
+		</div>
+	</div>
+</section>

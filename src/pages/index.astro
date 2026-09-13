@@ -1,0 +1,21 @@
+---
+import HeroSection from "@/components/HeroSection.astro";
+import SocialLinks from "@/components/SocialLinks.astro";
+import ThemeToggle from "@/components/ThemeToggle.astro";
+import { SITE_TITLE } from "@/consts";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+---
+
+<BaseLayout>
+	<main class="min-h-screen bg-surface font-body text-text-body">
+		<div class="sticky top-4 z-40 mx-auto flex w-full max-w-5xl justify-end px-4 pt-4">
+			<ThemeToggle />
+		</div>
+		<div>
+			<HeroSection title={SITE_TITLE} model="box" />
+		</div>
+		<div class="mt-4">
+			<SocialLinks />
+		</div>
+	</main>
+</BaseLayout>

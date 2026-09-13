@@ -1,0 +1,24 @@
+---
+import BrandIcon from "@/components/icons/BrandIcon.astro";
+import { socialLinks } from "@/data/socialLinks";
+---
+
+<section>
+	<div class="flex flex-wrap justify-center gap-4 py-4">
+		{
+			socialLinks.map((link) => (
+				<div>
+					<a
+						href={link.href}
+						target="_blank"
+						rel="noopener noreferrer"
+						class="flex flex-col items-center gap-2 text-text-primary no-underline"
+					>
+						<BrandIcon name={link.icon} class="h-8 w-8" />
+						<span class="text-[0.85rem]">{link.label}</span>
+					</a>
+				</div>
+			))
+		}
+	</div>
+</section>
