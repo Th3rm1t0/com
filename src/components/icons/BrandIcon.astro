@@ -1,0 +1,22 @@
+---
+import { BRAND_ICON_PATHS, type BrandIconName } from "@/data/brandIcons";
+
+export type { BrandIconName };
+
+type Props = {
+	name: BrandIconName;
+	class?: string;
+};
+
+const { name, class: className } = Astro.props;
+---
+
+<svg
+	xmlns="http://www.w3.org/2000/svg"
+	viewBox="0 0 24 24"
+	fill="currentColor"
+	class={className}
+	aria-hidden="true"
+>
+	<path d={BRAND_ICON_PATHS[name]} />
+</svg>
