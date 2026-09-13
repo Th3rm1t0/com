@@ -1,0 +1,13 @@
+diff --git a/examples/jsm/effects/AsciiEffect.js b/examples/jsm/effects/AsciiEffect.js
+index e163465166190bdde331b44d4e633c560c4028a9..04bfbc68e7e089b371b53eb5ac27b31df501f599 100644
+--- a/examples/jsm/effects/AsciiEffect.js
++++ b/examples/jsm/effects/AsciiEffect.js
+@@ -131,7 +131,7 @@ class AsciiEffect {
+ 
+ 		}
+ 
+-		const oCtx = oCanvas.getContext( '2d' );
++		const oCtx = oCanvas.getContext( '2d', { willReadFrequently: true } );
+ 		if ( ! oCtx.getImageData ) {
+ 
+ 			return;

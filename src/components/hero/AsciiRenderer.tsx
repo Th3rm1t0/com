@@ -21,12 +21,13 @@ export const AsciiRenderer: FC<AsciiRendererProps> = ({
 			invert,
 			resolution: 0.11,
 		});
+		// Must size immediately: the resize-only effect below won't rerun here.
+		effect.setSize(gl.domElement.width, gl.domElement.height);
 
 		effect.domElement.style.position = "absolute";
 		effect.domElement.style.top = "0";
 		effect.domElement.style.left = "0";
 		effect.domElement.style.pointerEvents = "none";
-		effect.domElement.style.color = asciiColor;
 		effect.domElement.style.backgroundColor = "transparent";
 		effect.domElement.style.filter = "contrast(1.14)";
 
@@ -39,7 +40,7 @@ export const AsciiRenderer: FC<AsciiRendererProps> = ({
 			effect.domElement.remove();
 			gl.domElement.style.display = "";
 		};
-	}, [gl, asciiColor, invert]);
+	}, [gl, invert]);
 
 	useEffect(() => {
 		if (effectRef.current) {

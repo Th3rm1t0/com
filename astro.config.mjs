@@ -9,12 +9,13 @@ export default defineConfig({
 	vite: {
 		plugins: [tailwindcss()],
 		build: {
-			// Always emit 3D model files as separate, cacheable assets instead of
-			// inlining them as base64 into JS chunks (Vite's default for small files).
+			// Keep model files cacheable instead of base64-inlined (Vite's small-file default).
 			assetsInlineLimit: (filePath) =>
 				MODEL_ASSET_EXTENSIONS.some((extension) => filePath.endsWith(extension))
 					? false
 					: undefined,
+			// The Hero island (react-three-fiber + three.js) loads lazily on its own; its size is expected.
+			chunkSizeWarningLimit: 1000,
 		},
 	},
 });

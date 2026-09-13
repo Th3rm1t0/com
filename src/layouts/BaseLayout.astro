@@ -14,6 +14,7 @@ const { title = SITE_TITLE } = Astro.props;
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
@@ -23,10 +24,10 @@ const { title = SITE_TITLE } = Astro.props;
 			fetchpriority="high"
 		/>
 		<link
+			id="font-inter"
 			rel="stylesheet"
 			href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
 			media="print"
-			onload="this.media='all'"
 		/>
 		<link
 			rel="preload"
@@ -35,10 +36,10 @@ const { title = SITE_TITLE } = Astro.props;
 			fetchpriority="high"
 		/>
 		<link
+			id="font-noto-sans-jp"
 			rel="stylesheet"
 			href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap"
 			media="print"
-			onload="this.media='all'"
 		/>
 		<script is:inline>
 			(function () {
@@ -54,6 +55,16 @@ const { title = SITE_TITLE } = Astro.props;
 				document.documentElement.setAttribute("data-theme", resolvedTheme);
 				document.documentElement.style.colorScheme = resolvedTheme;
 			})();
+
+			// media="print" defers these off the critical path; swap in once loaded.
+			for (var id of ["font-inter", "font-noto-sans-jp"]) {
+				var link = document.getElementById(id);
+				if (link) {
+					link.addEventListener("load", function () {
+						this.media = "all";
+					});
+				}
+			}
 		</script>
 		<title>{title}</title>
 	</head>

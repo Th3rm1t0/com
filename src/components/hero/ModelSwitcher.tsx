@@ -11,10 +11,6 @@ type ModelSwitcherProps = {
 	onSelect: (name: HeroModelName) => void;
 };
 
-/**
- * Plain row of tile-like squares for picking which registered 3D model to
- * display. Hidden when there is nothing to choose between.
- */
 export const ModelSwitcher: FC<ModelSwitcherProps> = ({
 	names,
 	models,

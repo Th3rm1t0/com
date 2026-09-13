@@ -1,12 +1,10 @@
 import { type ThreeElements, useFrame } from "@react-three/fiber";
-import { type FC, type RefObject, useEffect, useMemo, useRef } from "react";
+import { type FC, useEffect, useMemo, useRef } from "react";
 import { type Group, Mesh, MeshStandardMaterial } from "three";
 
 type RotatingModelProps = Omit<ThreeElements["group"], "children"> & {
 	model: Group;
 	color: string;
-	/** When provided, driven every frame instead of always fully opaque (used for cross-fades). */
-	opacityRef?: RefObject<number>;
 };
 
 type RotationState = {
@@ -50,25 +48,14 @@ const createRandomInitialRotation = (): {
 	z: randomBetween(0, FULL_ROTATION),
 });
 
-const forEachStandardMaterial = (
-	model: Group,
-	fn: (material: MeshStandardMaterial) => void,
-): void => {
+const applyAccentColor = (model: Group, color: string): void => {
 	model.traverse((child) => {
 		if (
 			child instanceof Mesh &&
 			child.material instanceof MeshStandardMaterial
 		) {
-			fn(child.material);
+			child.material.color.set(color);
 		}
-	});
-};
-
-/** Tints every standard-material mesh in the model to a single theme accent color. */
-const applyAccentColor = (model: Group, color: string): void => {
-	forEachStandardMaterial(model, (material) => {
-		material.color.set(color);
-		material.transparent = true;
 	});
 };
 
@@ -88,7 +75,6 @@ const disposeModel = (model: Group): void => {
 export const RotatingModel: FC<RotatingModelProps> = ({
 	model,
 	color,
-	opacityRef,
 	...groupProps
 }) => {
 	const initialRotation = useMemo(() => createRandomInitialRotation(), []);
@@ -110,13 +96,6 @@ export const RotatingModel: FC<RotatingModelProps> = ({
 	}, [model]);
 
 	useFrame((_state, delta) => {
-		if (opacityRef) {
-			const opacity = opacityRef.current;
-			forEachStandardMaterial(model, (material) => {
-				material.opacity = opacity;
-			});
-		}
-
 		if (!groupRef.current) {
 			return;
 		}
